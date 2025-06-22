@@ -20,3 +20,8 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+/* Montserrat font utility class */
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}

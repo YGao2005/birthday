@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import "./gallery.css";
 import { GlareCard } from "@/components/ui/glare-card";
+import { CustomPointer } from "@/components/ui/custom-pointer";
+
 
 // Simple static data - no complex video objects
 const galleryItems = [
   { id: "1-1", name: "Birthday", image: "/images/birthday.JPG" },
   { id: "1-2", name: "Cafes", image: "/images/cafe.JPG" },
   { id: "1-3", name: "Disney", image: "/images/disney.JPG" },
-  { id: "1-4", name: "Finals", image: "/images/finals.JPG" },
+  { id: "1-4", name: "Food", image: "/images/finals.JPG" },
   { id: "2-1", name: "Getty", image: "/images/getty.JPG" },
   { id: "2-2", name: "K-Town", image: "/images/ktown.JPG" },
   { id: "2-3", name: "Bay", image: "/images/leigh.JPG"},
@@ -40,6 +42,8 @@ const layoutPositions = [
 function App() {
   const galleryRef = useRef<HTMLDivElement>(null);
   const isHoveringCard = useRef(false);
+  const [isHoveringGlareCard, setIsHoveringGlareCard] = useState(false);
+
 
   useEffect(() => {
     const handleMouseMove = (e: Event) => {
@@ -72,10 +76,12 @@ function App() {
 
   const handleCardMouseEnter = () => {
     isHoveringCard.current = true;
+    setIsHoveringGlareCard(true);
   };
 
   const handleCardMouseLeave = () => {
     isHoveringCard.current = false;
+    setIsHoveringGlareCard(false);
   };
 
   const getPositionStyle = (position: string, offsetY: number) => {
@@ -102,6 +108,7 @@ function App() {
 
   return (
     <div className="container">
+      <CustomPointer isHovering={isHoveringGlareCard} />
       <div className="gallery" ref={galleryRef}>
         {layoutPositions.map(({ item, position, offsetY }) => (
           <div

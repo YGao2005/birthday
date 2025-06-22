@@ -139,7 +139,7 @@ export const GlareCard = ({
                   isHovered ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <p className="font-bold text-white text-2xl drop-shadow-lg text-center px-4">
+                <p className="font-montserrat font-bold text-white text-4xl drop-shadow-lg text-center px-4">
                   {title}
                 </p>
               </div>
