@@ -1,15 +1,19 @@
 import { cn } from "@/lib/utils";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export const GlareCard = ({
   children,
   className,
+  title,
 }: {
   children: React.ReactNode;
   className?: string;
+  title?: string;
 }) => {
   const isPointerInside = useRef(false);
   const refElement = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  
   const state = useRef({
     glare: {
       x: 50,
@@ -99,6 +103,7 @@ export const GlareCard = ({
       }}
       onPointerEnter={() => {
         isPointerInside.current = true;
+        setIsHovered(true);
         if (refElement.current) {
           setTimeout(() => {
             if (isPointerInside.current) {
@@ -109,6 +114,7 @@ export const GlareCard = ({
       }}
       onPointerLeave={() => {
         isPointerInside.current = false;
+        setIsHovered(false);
         if (refElement.current) {
           refElement.current.style.removeProperty("--duration");
           refElement.current?.style.setProperty("--r-x", `0deg`);
@@ -118,8 +124,26 @@ export const GlareCard = ({
     >
       <div className="h-full grid will-change-transform origin-center transition-transform duration-[var(--duration)] ease-[var(--easing)] delay-[var(--delay)] [transform:rotateY(var(--r-x))_rotateX(var(--r-y))] rounded-[var(--radius)] border border-slate-800 hover:[--opacity:0.3] hover:[--duration:200ms] hover:[--easing:linear] hover:filter-none overflow-hidden">
         <div className="w-full h-full grid [grid-area:1/1] mix-blend-soft-light [clip-path:inset(0_0_0_0_round_var(--radius))]">
-          <div className={cn("h-full w-full bg-slate-950", className)}>
+          <div className={cn("h-full w-full bg-slate-950 relative", className)}>
             {children}
+            {/* Darkening overlay on hover */}
+            <div 
+              className={`absolute inset-0 bg-black transition-opacity duration-300 ease-in-out z-10 ${
+                isHovered ? 'opacity-50' : 'opacity-0'
+              }`}
+            />
+            {/* Title overlay in center on hover */}
+            {title && (
+              <div 
+                className={`absolute inset-0 flex items-center justify-center z-20 transition-opacity duration-300 ease-in-out ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <p className="font-bold text-white text-2xl drop-shadow-lg text-center px-4">
+                  {title}
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <div className="w-full h-full grid [grid-area:1/1] mix-blend-soft-light [clip-path:inset(0_0_1px_0_round_var(--radius))] opacity-[var(--opacity)] transition-opacity transition-background duration-[var(--duration)] ease-[var(--easing)] delay-[var(--delay)] will-change-background [background:radial-gradient(farthest-corner_circle_at_var(--m-x)_var(--m-y),_rgba(255,255,255,0.8)_10%,_rgba(255,255,255,0.65)_20%,_rgba(255,255,255,0)_90%)]" />

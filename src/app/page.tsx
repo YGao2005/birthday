@@ -111,7 +111,10 @@ function App() {
             onMouseEnter={handleCardMouseEnter}
             onMouseLeave={handleCardMouseLeave}
           >
-            <GlareCard className="flex flex-col items-center justify-center h-full w-full">
+            <GlareCard 
+              className="flex flex-col items-center justify-center h-full w-full"
+              title={item.name}
+            >
               <Image
                 className="h-full w-full absolute inset-0 object-cover rounded-[var(--radius)]"
                 src={item.image || "/placeholder.svg"}
@@ -125,11 +128,6 @@ function App() {
                   objectPosition: 'center'
                 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-10 bg-gradient-to-t from-black/60 to-transparent flex justify-center items-end">
-                <p className="font-bold text-white text-2xl drop-shadow-lg">
-                  {item.name}
-                </p>
-              </div>
             </GlareCard>
           </div>
         ))}
