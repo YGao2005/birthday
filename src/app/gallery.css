@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+  }
+  
+  .gallery {
+    width: 200vw;
+    height: 200vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10em;
+  }
+  
+  .row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .gallery-item {
+    width: 320px;
+    height: 400px;
+    position: relative;
+    /* Ensure the item maintains its size and positioning */
+    flex-shrink: 0;
+  }
+  
+  /* Override GlareCard default sizing to fit our gallery layout */
+  .gallery-item > div {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+  }
+  
+  /* Ensure images fit properly within the rounded corners */
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Add a subtle hover effect for the entire gallery item */
+  .gallery-item:hover {
+    z-index: 10;
+  }
+  
+  /* Ensure text is readable with better contrast */
+  .gallery-item .absolute.bottom-0 {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    border-radius: 0 0 var(--radius, 48px) var(--radius, 48px);
+  }
+  
+  /* Optional: Add smooth transitions for better UX */
+  .gallery-item * {
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .gallery {
+      padding: 5em;
+    }
+  
+    .gallery-item {
+      width: 280px;
+      height: 350px;
+    }
+  
+    .row {
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .gallery {
+      width: 150vw;
+      height: 150vh;
+      padding: 3em;
+    }
+  
+    .gallery-item {
+      width: 240px;
+      height: 300px;
+    }
+  
+    .row {
+      gap: 1rem;
+    }
+  }
+  
