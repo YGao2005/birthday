@@ -1,50 +1,41 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import "./gallery.css";
 import { GlareCard } from "@/components/ui/glare-card";
 
 // Simple static data - no complex video objects
 const galleryItems = [
-  { id: "1-1", name: "Project Alpha", image: "/images/1.jpeg" },
-  { id: "1-2", name: "Project Beta", image: "/images/2.jpeg" },
-  { id: "1-3", name: "Project Gamma", image: "/images/3.jpeg" },
-  { id: "1-4", name: "Project Delta", image: "/images/4.jpeg" },
-  { id: "2-1", name: "Project Echo", image: "/images/5.JPG" },
-  { id: "2-2", name: "Project Foxtrot", image: "/images/6.JPG" },
-  {
-    id: "2-3",
-    name: "Project Golf",
-    image: "/placeholder.svg?height=400&width=320",
-  },
-  {
-    id: "3-1",
-    name: "Project Hotel",
-    image: "/placeholder.svg?height=400&width=320",
-  },
-  {
-    id: "3-2",
-    name: "Project India",
-    image: "/placeholder.svg?height=400&width=320",
-  },
-  {
-    id: "3-3",
-    name: "Project Juliet",
-    image: "/placeholder.svg?height=400&width=320",
-  },
-  {
-    id: "3-4",
-    name: "Project Kilo",
-    image: "/placeholder.svg?height=400&width=320",
-  },
+  { id: "1-1", name: "Birthday", image: "/images/birthday.JPG" },
+  { id: "1-2", name: "Cafes", image: "/images/cafe.JPG" },
+  { id: "1-3", name: "Disney", image: "/images/disney.JPG" },
+  { id: "1-4", name: "Finals", image: "/images/finals.JPG" },
+  { id: "2-1", name: "Getty", image: "/images/getty.JPG" },
+  { id: "2-2", name: "K-Town", image: "/images/ktown.JPG" },
+  { id: "2-3", name: "Bay", image: "/images/leigh.JPG"},
+  { id: "3-1", name: "SF", image: "/images/SF.JPG"},
 ];
 
-// Group items into rows
-const rows = [
-  galleryItems.slice(0, 4), // First row: 4 items
-  galleryItems.slice(4, 7), // Second row: 3 items
-  galleryItems.slice(7, 11), // Third row: 4 items
+const layoutPositions = [
+  // Row 1: 3 items (left, center, right)
+  { item: galleryItems[0], position: 'left', offsetY: 0 },
+  { item: galleryItems[1], position: 'center', offsetY: 0 },
+  { item: galleryItems[2], position: 'right', offsetY: 0 },
+  
+  // Row 2: 2 items (offset positions)
+  { item: galleryItems[3], position: 'left-center', offsetY: 300 },
+  { item: galleryItems[4], position: 'right-center', offsetY: 300 },
+  
+  // Row 3: 3 items (left, center, right)
+  { item: galleryItems[5], position: 'left', offsetY: 600 },
+  { item: galleryItems[6], position: 'center', offsetY: 600 },
+  { item: galleryItems[7], position: 'right', offsetY: 600 },
+  
+  // Row 4: 1 item (center)
+  //{ item: galleryItems[8], position: 'center', offsetY: 840 },
 ];
+
 
 function App() {
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -87,38 +78,65 @@ function App() {
     isHoveringCard.current = false;
   };
 
+  const getPositionStyle = (position: string, offsetY: number) => {
+    const baseStyles = {
+      position: 'absolute' as const,
+      top: `${offsetY}px`,
+    };
+    
+    switch (position) {
+      case 'left':
+        return { ...baseStyles, left: '7%' };
+      case 'center':
+        return { ...baseStyles, left: '50%', transform: 'translateX(-50%)' };
+      case 'right':
+        return { ...baseStyles, right: '7%' };
+      case 'left-center':
+        return { ...baseStyles, left: '25%' };
+      case 'right-center':
+        return { ...baseStyles, right: '25%' };
+      default:
+        return baseStyles;
+    }
+  };
+
   return (
     <div className="container">
       <div className="gallery" ref={galleryRef}>
-        {rows.map((row, rowIndex) => (
-          <div key={`row-${rowIndex}`} className="row">
-            {row.map((item) => (
-              <div
-                key={item.id}
-                className="gallery-item"
-                onMouseEnter={handleCardMouseEnter}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <GlareCard className="flex flex-col items-center justify-center h-full w-full">
-                  <img
-                    className="h-full w-full absolute inset-0 object-cover rounded-[var(--radius)]"
-                    style={{ aspectRatio: "320/400" }}
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.name}
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-10 bg-gradient-to-t from-black/60 to-transparent flex justify-center items-end">
-                    <p className="font-bold text-white text-2xl drop-shadow-lg">
-                      {item.name}
-                    </p>
-                  </div>
-                </GlareCard>
+        {layoutPositions.map(({ item, position, offsetY }) => (
+          <div
+            key={item.id}
+            className="gallery-item"
+            style={getPositionStyle(position, offsetY)}
+            onMouseEnter={handleCardMouseEnter}
+            onMouseLeave={handleCardMouseLeave}
+          >
+            <GlareCard className="flex flex-col items-center justify-center h-full w-full">
+              <Image
+                className="h-full w-full absolute inset-0 object-cover rounded-[var(--radius)]"
+                src={item.image || "/placeholder.svg"}
+                alt={item.name}
+                fill
+                sizes="(max-width: 768px) 240px, (max-width: 1200px) 280px, 320px"
+                quality={95}
+                priority={offsetY === 0} // Prioritize first row images
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center'
+                }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 z-10 bg-gradient-to-t from-black/60 to-transparent flex justify-center items-end">
+                <p className="font-bold text-white text-2xl drop-shadow-lg">
+                  {item.name}
+                </p>
               </div>
-            ))}
+            </GlareCard>
           </div>
         ))}
       </div>
     </div>
   );
 }
+
 
 export default App;
