@@ -120,6 +120,11 @@
     .gallery-left-panel {
       padding: 3rem 2rem;
     }
+
+    .back-button {
+        left: 2rem; /* Match the panel padding */
+        top: 3rem;
+      }
     
     .gallery-title {
       font-size: clamp(2.5rem, 4vw, 4rem);
@@ -172,3 +177,14 @@
       height: 14rem;
     }
   }
+
+  @media (max-width: 1536px) {
+    .back-button {
+      left: 5rem; /* Match smaller screens */
+    }
+    .back-button {
+      left: 1.5rem; /* Match mobile panel padding */
+      top: 2rem;
+    }
+  }
+  

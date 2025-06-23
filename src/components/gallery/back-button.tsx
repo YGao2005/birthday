@@ -18,28 +18,44 @@ export const BackButton = ({ className = "" }: BackButtonProps) => {
   return (
     <button
       onClick={handleBack}
-      className={`back-button fixed top-8 left-8 z-50 flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 group ${className}`}
+      className={`back-button fixed top-20 left-32 z-50 flex items-center gap-3 group ${className}`}
     >
-      <div className="flex items-center justify-center">
-        <ArrowLeft size={18} />
+      <div className="relative">
+        {/* Background circle */}
+        <div className="absolute inset-0 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20" />
+        
+        {/* Arrow icon */}
+        <div className="relative w-12 h-12 flex items-center justify-center">
+          <ArrowLeft className="w-5 h-5 text-white transition-transform duration-300 group-hover:-translate-x-1" />
+        </div>
       </div>
-      <span className="text-sm font-medium opacity-0 group-hover:opacity-100 max-w-0 group-hover:max-w-[100px] overflow-hidden transition-all duration-300">
+      
+      {/* Text label */}
+      <span className="text-white text-sm font-medium opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
         Back to Gallery
       </span>
     </button>
   );
 };
 
-// Alternative minimal back button
+// Alternative minimal back button with better hover state
 export const MinimalBackButton = ({ className = "" }: BackButtonProps) => {
   const router = useRouter();
 
   return (
     <button
       onClick={() => router.push('/')}
-      className={`back-button fixed top-8 left-8 z-50 w-12 h-12 bg-black/20 backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-black/30 transition-all duration-300 flex items-center justify-center ${className}`}
+      className={`back-button fixed top-20 left-32 z-50 group ${className}`}
     >
-      <ArrowLeft size={20} />
+      <div className="relative">
+        {/* Hover background */}
+        <div className="absolute -inset-2 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {/* Main circle */}
+        <div className="relative w-12 h-12 bg-black/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-black/30 group-hover:border-white/30">
+          <ArrowLeft className="w-5 h-5 text-white transition-transform duration-300 group-hover:-translate-x-0.5" />
+        </div>
+      </div>
     </button>
   );
 };
