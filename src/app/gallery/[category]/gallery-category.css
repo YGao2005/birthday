@@ -1,0 +1,172 @@
+/* Gallery Category Page Styles */
+.gallery-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gallery-left-panel {
+    width: 50%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 8rem;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .gallery-right-panel {
+    width: 70%;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .gallery-content {
+    max-width: 32rem; /* ~512px */
+  }
+  
+  .gallery-title {
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+  }
+  
+  .gallery-description {
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+  
+  .gallery-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  
+  .gallery-divider {
+    margin-top: 3rem;
+    width: 12rem;
+    height: 1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
+  }
+
+  /* ParallaxScroll positioning styles - moved from component to prevent async rendering issues */
+  .parallax-scroll-side {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .parallax-scroll-side .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 2rem;
+    padding: 1rem 4rem 0rem 0rem;
+    max-width: none;
+    width: 100%;
+  }
+
+  .parallax-scroll-side .grid > div {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .parallax-scroll-side .grid img {
+    height: 18rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .parallax-scroll-side .grid img:hover {
+    transform: scale(1.02);
+  }
+
+  .parallax-scroll-side .grid .group {
+    position: relative;
+  }
+
+  .parallax-scroll-side .grid .group::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0.5rem;
+  }
+
+  .parallax-scroll-side .grid .group:hover::after {
+    opacity: 1;
+  }
+  
+  /* Ensure proper layout on different screen sizes */
+  @media (max-width: 1024px) {
+    .gallery-left-panel {
+      padding: 3rem 2rem;
+    }
+    
+    .gallery-title {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+    }
+
+    .parallax-scroll-side .grid {
+      padding: 3rem 2rem 3rem 2.5rem;
+      gap: 1.5rem;
+    }
+
+    .parallax-scroll-side .grid > div {
+      gap: 1.5rem;
+    }
+
+    .parallax-scroll-side .grid img {
+      height: 16rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .gallery-layout {
+      flex-direction: column;
+    }
+    
+    .gallery-left-panel,
+    .gallery-right-panel {
+      width: 100%;
+      min-height: auto;
+    }
+    
+    .gallery-left-panel {
+      min-height: 50vh;
+      padding: 2rem 1.5rem;
+    }
+    
+    .gallery-right-panel {
+      min-height: 100vh;
+    }
+
+    .parallax-scroll-side .grid {
+      padding: 2rem 1.5rem;
+      gap: 1rem;
+    }
+
+    .parallax-scroll-side .grid > div {
+      gap: 1rem;
+    }
+
+    .parallax-scroll-side .grid img {
+      height: 14rem;
+    }
+  }

@@ -118,10 +118,10 @@ export interface GalleryItem {
     },
     {
       id: "sf",
-      name: "San Francisco",
+      name: "SF 3/25/25",
       slug: "sf",
       coverImage: "/images/SF/SF.JPG",
-      description: "San Francisco city adventures",
+      description: "Ellie and Maggie went on a date and Yang third wheeled. Some of my favorite photos are from this trip, just look at our photos we took together on the pier (and look at my diabolical side eye to Maggie). Also, look at Ellie's face when she dropped the bear into the drink LOL. ",
       images: [
         "/images/SF/SF.JPG",
         "/images/SF/sf1.JPG",
@@ -151,6 +151,7 @@ export interface GalleryItem {
         "/images/SF/sf25.JPG",
         "/images/SF/sf26.JPG",
         "/images/SF/sf27.JPG",
+        "/images/SF/sf28.JPG",
       ]
     },
   ];

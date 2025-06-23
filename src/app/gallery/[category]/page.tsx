@@ -2,48 +2,59 @@
 "use client";
 
 import { useParams, notFound } from "next/navigation";
+import { useEffect, useState } from "react";
 import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import { BackButton } from "@/components/gallery/back-button";
 import { getGalleryBySlug } from "@/data/gallery-data";
+import "./gallery-category.css";
 
 export default function GalleryPage() {
   const params = useParams();
   const category = params.category as string;
+  const [isLoaded, setIsLoaded] = useState(false);
   
   const galleryItem = getGalleryBySlug(category);
+  
+  useEffect(() => {
+    // Force a layout recalculation after mount
+    setIsLoaded(true);
+  }, []);
   
   if (!galleryItem) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-black relative flex">
+    <div className="gallery-layout">
       <BackButton />
       
       {/* Left Side - Title and Description */}
-      <div className="w-1/2 min-h-screen flex flex-col justify-center px-16 py-20">
-        <div className="max-w-lg">
-          <h1 className="text-5xl md:text-7xl font-montserrat font-bold text-white mb-8 leading-tight">
+      <div className="gallery-left-panel">
+        <div className={`gallery-content transition-all duration-500 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+          <h1 className="gallery-title font-montserrat">
             {galleryItem.name}
           </h1>
           
+          <p className="gallery-description">
+              "She's mine now!" - Maggie
+            </p>
+
           {galleryItem.description && (
-            <p className="text-xl leading-relaxed mb-8">
+            <p className="gallery-description">
               {galleryItem.description}
             </p>
           )}
           
-          <div className="text-sm text-gray-500 uppercase tracking-widest">
+          <div className="gallery-count">
             {galleryItem.images.length} photos
           </div>
           
-          {/* Optional: Add some visual element */}
-          <div className="mt-12 w-20 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+          <div className="gallery-divider" />
         </div>
       </div>
 
       {/* Right Side - Parallax Gallery */}
-      <div className="w-1/2 min-h-screen">
+      <div className="gallery-right-panel">
         <ParallaxScroll images={galleryItem.images} isSideLayout={true} />
       </div>
     </div>

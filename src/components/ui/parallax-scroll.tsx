@@ -34,47 +34,45 @@ export const ParallaxScroll = ({
 
     return (
       <div
-        className={cn("parallax-scroll h-[100vh] items-start overflow-y-auto w-full", className)}
+        className={cn("parallax-scroll-side", className)}
         ref={gridRef}
       >
-        <div className="grid grid-cols-2 items-start gap-8 py-20 px-16 pl-20 pr-12 max-w-none">
-          <div className="grid gap-8">
+        <div className="grid">
+          <div>
             {firstPart.map((el, idx) => (
               <motion.div
                 style={{ y: translateFirst }}
                 key={"grid-1" + idx}
-                className="relative group"
+                className="group"
               >
                 <Image
                   src={el}
-                  className="h-72 w-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.02] shadow-2xl"
+                  className=""
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             ))}
           </div>
-          <div className="grid gap-8">
+          <div>
             {secondPart.map((el, idx) => (
               <motion.div
                 style={{ y: translateSecond }}
                 key={"grid-2" + idx}
-                className="relative group"
+                className="group"
               >
                 <Image
                   src={el}
-                  className="h-72 w-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.02] shadow-2xl"
+                  className=""
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             ))}
           </div>

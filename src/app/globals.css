@@ -4,17 +4,21 @@
 @custom-variant dark (&:is(.dark *));
 
 html {
-  overflow: hidden;
+  overflow: hidden !important;
   width: 100%;
   height: 100%;
+  /* Prevent layout shift during hydration */
+  box-sizing: border-box;
 }
 
 body {
-  overflow: hidden;
+  overflow: hidden !important;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  /* Prevent layout shift during hydration */
+  box-sizing: border-box;
 }
 
 /* Prevent any default margins/padding that might cause issues */
@@ -22,6 +26,13 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/* Ensure proper layout for gallery pages */
+.gallery-page {
+  overflow: hidden !important;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* Montserrat font utility class */
