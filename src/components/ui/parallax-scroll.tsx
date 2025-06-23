@@ -1,8 +1,8 @@
 // src/components/ui/parallax-scroll.tsx
 "use client";
 
-import { useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useScroll, useTransform, useMotionValue, useAnimationFrame } from "motion/react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -17,10 +17,47 @@ export const ParallaxScroll = ({
   isSideLayout?: boolean;
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    container: gridRef,
-    offset: ["start start", "end start"],
-  });
+  const [isActive, setIsActive] = useState(false);
+  const scrollY = useMotionValue(0);
+  const scrollYProgress = useMotionValue(0);
+  
+  // Listen to wheel events on the entire document when component is active
+  useEffect(() => {
+    if (!gridRef.current) return;
+    
+    let currentScroll = 0;
+    const maxScroll = gridRef.current.scrollHeight - gridRef.current.clientHeight;
+    
+    const handleWheel = (e: WheelEvent) => {
+      if (!isActive || !gridRef.current) return;
+      
+      // Prevent default scrolling behavior
+      e.preventDefault();
+      
+      // Update scroll position
+      currentScroll = Math.max(0, Math.min(currentScroll + e.deltaY, maxScroll));
+      
+      // Update the grid scroll
+      gridRef.current.scrollTop = currentScroll;
+      
+      // Update motion values
+      scrollY.set(currentScroll);
+      scrollYProgress.set(currentScroll / maxScroll);
+    };
+    
+    // Add passive: false to enable preventDefault
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [isActive, scrollY, scrollYProgress]);
+  
+  // Set active state when component mounts
+  useEffect(() => {
+    setIsActive(true);
+    return () => setIsActive(false);
+  }, []);
 
   const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const translateSecond = useTransform(scrollYProgress, [0, 1], [0, 200]);

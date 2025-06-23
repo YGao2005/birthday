@@ -57,13 +57,15 @@
     background: linear-gradient(to right, rgba(255, 255, 255, 0.2), transparent);
   }
 
-  /* ParallaxScroll positioning styles - moved from component to prevent async rendering issues */
-  .parallax-scroll-side {
+.parallax-scroll-side {
     height: 100vh;
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     align-items: flex-start;
+    /* Prevent default scroll behavior when controlled by wheel events */
+    overscroll-behavior: contain;
   }
 
   .parallax-scroll-side .grid {
