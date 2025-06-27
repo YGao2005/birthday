@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import { GlobalCursorProvider } from "@/components/ui/global-cursor";
+import CurveTransition from "@/components/ui/curve-transition";
+import { BackButton } from "@/components/gallery/back-button";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,7 +38,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
       >
         <GlobalCursorProvider>
-          {children}
+          <CurveTransition>
+            {children}
+          </CurveTransition>
         </GlobalCursorProvider>
       </body>
     </html>

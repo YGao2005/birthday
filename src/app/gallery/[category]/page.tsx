@@ -36,8 +36,8 @@ export default function GalleryPage() {
           </h1>
           
           <p className="gallery-description">
-              "She's mine now!" - Maggie
-            </p>
+            "She's mine now!" - Maggie
+          </p>
 
           {galleryItem.description && (
             <p className="gallery-description">
