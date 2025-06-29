@@ -1,7 +1,7 @@
 // src/components/gallery/back-button.tsx
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { ArrowLeft } from "lucide-react";
 
 interface BackButtonProps {

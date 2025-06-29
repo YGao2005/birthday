@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { GlareCard } from "@/components/ui/glare-card";
 import { galleryData } from "@/data/gallery-data";
 

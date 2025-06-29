@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { getGalleryBySlug } from "@/data/gallery-data";
 import { text, curve, translate } from "./curve-animations";
 import "./curve-transition.css";
@@ -12,13 +12,15 @@ interface CurveTransitionProps {
 }
 
 // Route mapping function
-const getRouteLabel = (pathname: string): string => {
+const getRouteLabel = (pathname: string, query: any): string => {
   if (pathname === "/") return "Gallery";
   
-  if (pathname.startsWith("/gallery/")) {
-    const slug = pathname.split("/")[2];
+  if (pathname === "/gallery/[category]") {
+    const slug = query.category;
+    // Handle transition states where query might be undefined
+    if (!slug) return "Gallery";
     const gallery = getGalleryBySlug(slug);
-    return gallery?.name || "Collection";
+    return gallery?.name || "Gallery";
   }
   
   return "Gallery";
@@ -60,7 +62,8 @@ const CurveSVG = ({ height, width }: { height: number; width: number }) => {
 };
 
 export default function CurveTransition({ children }: CurveTransitionProps) {
-  const pathname = usePathname();
+  const router = useRouter();
+  const pathname = router.pathname;
   const [dimensions, setDimensions] = useState<{
     width: number | null;
     height: number | null;
@@ -85,7 +88,7 @@ export default function CurveTransition({ children }: CurveTransitionProps) {
     };
   }, []);
 
-  const routeLabel = getRouteLabel(pathname);
+  const routeLabel = getRouteLabel(pathname, router.query);
 
   return (
     <AnimatePresence mode="wait">
