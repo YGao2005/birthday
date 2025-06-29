@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { useRouter } from "next/router";
 import { getGalleryBySlug } from "@/data/gallery-data";
 import { text, curve, translate } from "./curve-animations";
@@ -9,15 +9,15 @@ import "./curve-transition.css";
 
 interface CurveTransitionProps {
   children: React.ReactNode;
+  backgroundColor?: string;
 }
 
 // Route mapping function
-const getRouteLabel = (pathname: string, query: any): string => {
-  if (pathname === "/") return "Gallery";
+const getRouteLabel = (route: string, query: any): string => {
+  if (route === "/") return "Gallery";
   
-  if (pathname === "/gallery/[category]") {
+  if (route === "/gallery/[category]") {
     const slug = query.category;
-    // Handle transition states where query might be undefined
     if (!slug) return "Gallery";
     const gallery = getGalleryBySlug(slug);
     return gallery?.name || "Gallery";
@@ -61,9 +61,11 @@ const CurveSVG = ({ height, width }: { height: number; width: number }) => {
   );
 };
 
-export default function CurveTransition({ children }: CurveTransitionProps) {
+export default function CurveTransition({ 
+  children, 
+  backgroundColor = "transparent" 
+}: CurveTransitionProps) {
   const router = useRouter();
-  const pathname = router.pathname;
   const [dimensions, setDimensions] = useState<{
     width: number | null;
     height: number | null;
@@ -88,36 +90,34 @@ export default function CurveTransition({ children }: CurveTransitionProps) {
     };
   }, []);
 
-  const routeLabel = getRouteLabel(pathname, router.query);
+  const routeLabel = getRouteLabel(router.route, router.query);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        className="curve-transition"
-        style={{ backgroundColor: "transparent" }}
-      >
-        {/* Background overlay */}
-        <div
-          style={{ opacity: dimensions.width == null ? 1 : 0 }}
-          className="curve-background"
-        />
-        
-        {/* Route label */}
-        <motion.p className="route-label" {...anim(text)}>
-          {routeLabel}
-        </motion.p>
-        
-        {/* SVG Curve */}
-        {dimensions.width != null && dimensions.height != null && (
-          <CurveSVG height={dimensions.height} width={dimensions.width} />
-        )}
-        
-        {/* Page content */}
-        <div className="curve-transition-content">
-          {children}
-        </div>
-      </motion.div>
-    </AnimatePresence>
+    <motion.div 
+      className="page curve" 
+      style={{ backgroundColor }}
+      initial="initial"
+      animate="enter"
+      exit="exit"
+    >
+      {/* Background overlay */}
+      <div
+        style={{ opacity: dimensions.width == null ? 1 : 0 }}
+        className="background"
+      />
+      
+      {/* Route label */}
+      <motion.p className="route" {...anim(text)}>
+        {routeLabel}
+      </motion.p>
+      
+      {/* SVG Curve */}
+      {dimensions.width != null && dimensions.height != null && (
+        <CurveSVG height={dimensions.height} width={dimensions.width} />
+      )}
+      
+      {/* Page content */}
+      {children}
+    </motion.div>
   );
 }

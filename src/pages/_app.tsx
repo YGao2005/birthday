@@ -2,7 +2,7 @@
 import type { AppProps } from "next/app";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import { GlobalCursorProvider } from "@/components/ui/global-cursor";
-import CurveTransition from "@/components/ui/curve-transition";
+import { AnimatePresence } from "motion/react";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -21,16 +21,16 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <div
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
     >
       <GlobalCursorProvider>
-        <CurveTransition>
-          <Component {...pageProps} />
-        </CurveTransition>
+        <AnimatePresence mode="wait">
+          <Component key={router.route} {...pageProps} />
+        </AnimatePresence>
       </GlobalCursorProvider>
     </div>
   );
-} 
+}
