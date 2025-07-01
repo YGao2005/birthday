@@ -21,6 +21,10 @@ const layoutPositions = [
   { position: 'left', offsetY: 600 },
   { position: 'center', offsetY: 600 },
   { position: 'right', offsetY: 600 },
+  
+  // Row 4: 2 items (offset positions)
+  { position: 'left-center', offsetY: 900 },
+  { position: 'right-center', offsetY: 900 },
 ];
 
 export function MainGallery() {
@@ -69,7 +73,7 @@ export function MainGallery() {
   };
 
   const handleCardClick = (slug: string) => {
-    router.push(`/gallery/${slug}`);
+    router.push(`/${slug}`);
   };
 
   const getPositionStyle = (position: string, offsetY: number) => {

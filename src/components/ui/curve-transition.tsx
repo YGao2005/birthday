@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useRouter } from "next/router";
-import { getGalleryBySlug } from "@/data/gallery-data";
 import { text, curve, translate } from "./curve-animations";
 import "./curve-transition.css";
 
@@ -12,18 +11,19 @@ interface CurveTransitionProps {
   backgroundColor?: string;
 }
 
-// Route mapping function
-const getRouteLabel = (route: string, query: any): string => {
-  if (route === "/") return "Gallery";
-  
-  if (route === "/gallery/[category]") {
-    const slug = query.category;
-    if (!slug) return "Gallery";
-    const gallery = getGalleryBySlug(slug);
-    return gallery?.name || "Gallery";
-  }
-  
-  return "Gallery";
+// Simple route mapping object
+const routes = {
+  "/": "Gallery",
+  "/birthday": "Birthday",
+  "/cafes": "Cafes",
+  "/disney": "Disney",
+  "/food": "Food",
+  "/getty": "Getty",
+  "/ktown": "K-Town",
+  "/bay": "Bay",
+  "/sf": "SF",
+  "/cute": "Cute",
+  "/funny": "Funny"
 };
 
 // Animation helper
@@ -90,7 +90,7 @@ export default function CurveTransition({
     };
   }, []);
 
-  const routeLabel = getRouteLabel(router.route, router.query);
+  const routeLabel = routes[router.route as keyof typeof routes] || "Gallery";
 
   return (
     <motion.div 
