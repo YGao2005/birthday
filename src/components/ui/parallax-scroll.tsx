@@ -66,6 +66,13 @@ export const ParallaxScroll = ({
   const translateSecond = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const translateThird = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
+  // Helper function to calculate delay with a maximum cap
+  const calculateDelay = (columnLength: number, idx: number, baseDelay: number = 0.25) => {
+    const maxDelaySteps = 15; // Cap at 15 steps (0.75s max additional delay)
+    const actualSteps = Math.min(columnLength - 1 - idx, maxDelaySteps);
+    return baseDelay + actualSteps * 0.05;
+  };
+
   // For side layout, we'll use 2 columns instead of 3
   if (isSideLayout) {
     const half = Math.ceil(images.length / 2);
@@ -82,7 +89,7 @@ export const ParallaxScroll = ({
             {firstPart.map((el, idx) => (
               <BlurFade 
                 key={"grid-1" + idx} 
-                delay={0.25 + (firstPart.length - 1 - idx) * 0.05} 
+                delay={calculateDelay(firstPart.length, idx)} 
                 direction="up"
                 inView
               >
@@ -109,7 +116,7 @@ export const ParallaxScroll = ({
             {secondPart.map((el, idx) => (
               <BlurFade 
                 key={"grid-2" + idx} 
-                delay={0.25 + (secondPart.length - 1 - idx) * 0.05} 
+                delay={calculateDelay(secondPart.length, idx)} 
                 direction="up"
                 inView
               >
@@ -153,7 +160,7 @@ export const ParallaxScroll = ({
           {firstPart.map((el, idx) => (
             <BlurFade 
               key={"grid-1" + idx} 
-              delay={0.25 + (firstPart.length - 1 - idx) * 0.05} 
+              delay={calculateDelay(firstPart.length, idx)} 
               direction="up"
               inView
             >
@@ -180,7 +187,7 @@ export const ParallaxScroll = ({
           {secondPart.map((el, idx) => (
             <BlurFade 
               key={"grid-2" + idx} 
-              delay={0.25 + (secondPart.length - 1 - idx) * 0.05} 
+              delay={calculateDelay(secondPart.length, idx)} 
               direction="up"
               inView
             >
@@ -207,7 +214,7 @@ export const ParallaxScroll = ({
           {thirdPart.map((el, idx) => (
             <BlurFade 
               key={"grid-3" + idx} 
-              delay={0.25 + (thirdPart.length - 1 - idx) * 0.05} 
+              delay={calculateDelay(thirdPart.length, idx)} 
               direction="up"
               inView
             >
