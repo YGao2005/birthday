@@ -1,6 +1,8 @@
 "use client";
 import { ArrowRight, X } from "lucide-react";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
+import { AnimatePresence, motion } from "motion/react";
+import { BlurFade } from "@/components/magicui/blur-fade";
 
 import { useState, useRef, useId, useEffect, useCallback } from "react";
 import Image from "next/image";
@@ -128,7 +130,7 @@ const CarouselControl = ({
   handleClick,
 }: CarouselControlProps) => {
   return (
-    <button className="mx-8 group cursor-none" title={title} onClick={handleClick}>
+    <button className="group cursor-none" title={title} onClick={handleClick}>
       <div
         className={`relative h-12 w-12 rounded-full bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20 ${
           type === "previous" ? "rotate-180" : ""
@@ -182,7 +184,7 @@ export function ImageCarousel({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose, handlePreviousClick, handleNextClick]);
+  }, [isOpen, onClose, current, images.length]);
 
   const handleSlideClick = (index: number) => {
     if (current !== index) {
@@ -192,66 +194,97 @@ export function ImageCarousel({
 
   const id = useId();
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm cursor-none">
-      {/* Close button */}
-              <button
-          onClick={onClose}
-          className="fixed top-4 right-4 z-[60] group cursor-none"
-          title="Close carousel"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          className="fixed inset-0 z-50 flex items-center justify-center cursor-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 0.3 } }}
+          exit={{ opacity: 0, transition: { duration: 0.6 } }}
         >
-        <div className="relative h-12 w-12 rounded-full bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
-          <X
-            className="absolute left-1/2 top-1/2 h-5 w-5 translate-x-2/3 translate-y-2/3 text-white transition-transform duration-300 group-hover:scale-110"
-            style={{ width: "20px", height: "20px" }}
-          />
-        </div>
-      </button>
-
-      {/* Carousel container */}
-      <div
-        className="relative w-[70vmin] h-[70vmin] mx-auto"
-        aria-labelledby={`carousel-heading-${id}`}
-      >
-        <ul
-          className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
-          style={{
-            transform: `translateX(-${current * (100 / images.length)}%)`,
-          }}
-        >
-          {images.map((src, index) => (
-            <Slide
-              key={index}
-              src={src}
-              index={index}
-              current={current}
-              handleSlideClick={handleSlideClick}
-            />
-          ))}
-        </ul>
-
-        {/* Navigation controls */}
-        <div className="absolute flex justify-center w-full top-[calc(100%+1rem)]">
-          <CarouselControl
-            type="previous"
-            title="Go to previous slide"
-            handleClick={handlePreviousClick}
+          {/* Animated backdrop */}
+          <motion.div
+            className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.4 } }}
+            exit={{ opacity: 0, transition: { duration: 0.7 } }}
+            onClick={onClose}
           />
 
-          <CarouselControl
-            type="next"
-            title="Go to next slide"
-            handleClick={handleNextClick}
-          />
-        </div>
+          {/* Close button with BlurFade */}
+          <BlurFade delay={0.2} direction="down" inView>
+            <button
+              onClick={onClose}
+              className="fixed top-4 right-4 z-[60] group cursor-none"
+              title="Close carousel"
+            >
+              <div className="relative h-12 w-12 rounded-full bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
+                <X
+                  className="absolute left-1/2 top-1/2 h-5 w-5 translate-x-2/3 translate-y-2/3 text-white transition-transform duration-300 group-hover:scale-110"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </div>
+            </button>
+          </BlurFade>
 
-        {/* Image counter */}
-        <div className="absolute bottom-[-3rem] left-1/2 transform -translate-x-1/2 text-white text-sm">
-          {current + 1} / {images.length}
-        </div>
-      </div>
-    </div>
+          {/* Carousel container with scale animation */}
+          <motion.div
+            className="relative w-[70vmin] h-[70vmin] mx-auto z-10"
+            aria-labelledby={`carousel-heading-${id}`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1, transition: { duration: 0.5, delay: 0.1, ease: "easeOut" } }}
+            exit={{ scale: 0.8, opacity: 0, transition: { duration: 0.6, ease: "easeIn" } }}
+          >
+            <ul
+              className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
+              style={{
+                transform: `translateX(-${current * (100 / images.length)}%)`,
+              }}
+            >
+              {images.map((src, index) => (
+                <Slide
+                  key={index}
+                  src={src}
+                  index={index}
+                  current={current}
+                  handleSlideClick={handleSlideClick}
+                />
+              ))}
+            </ul>
+
+            {/* Navigation controls with staggered animation */}
+            <motion.div 
+              className="absolute flex justify-center items-center gap-16 w-full top-[calc(100%+1rem)]"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1, transition: { duration: 0.4, delay: 0.3 } }}
+              exit={{ y: 20, opacity: 0, transition: { duration: 0.5 } }}
+            >
+              <CarouselControl
+                type="previous"
+                title="Go to previous slide"
+                handleClick={handlePreviousClick}
+              />
+
+              <CarouselControl
+                type="next"
+                title="Go to next slide"
+                handleClick={handleNextClick}
+              />
+            </motion.div>
+
+            {/* Image counter with fade animation */}
+            <motion.div 
+              className="absolute bottom-[-3rem] left-1/2 transform -translate-x-1/2 text-white text-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.4 } }}
+              exit={{ opacity: 0, transition: { duration: 0.4 } }}
+            >
+              {current + 1} / {images.length}
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
