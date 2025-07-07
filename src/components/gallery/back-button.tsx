@@ -28,7 +28,7 @@ export const BackButton = ({ className = "" }: BackButtonProps) => {
     <button
       onClick={handleBack}
       disabled={isTransitioning}
-      className={`back-button fixed top-20 left-32 z-[10002] flex items-center gap-3 group ${
+      className={`back-button fixed top-20 left-32 z-[10002] flex items-center gap-3 group cursor-none ${
         isTransitioning ? 'opacity-50 pointer-events-none' : ''
       } ${className}`}
     >

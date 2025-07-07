@@ -11,10 +11,12 @@ export const ParallaxScroll = ({
   images,
   className,
   isSideLayout = false,
+  onImageClick,
 }: {
   images: string[];
   className?: string;
   isSideLayout?: boolean;
+  onImageClick?: (imageIndex: number) => void;
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
@@ -80,17 +82,19 @@ export const ParallaxScroll = ({
               <motion.div
                 style={{ y: translateFirst }}
                 key={"grid-1" + idx}
-                className="group"
+                className="relative group cursor-pointer"
+                onClick={() => onImageClick?.(idx)}
               >
                 <Image
                   src={el}
-                  className=""
+                  className="transition-transform duration-300 group-hover:scale-[1.02]"
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             ))}
           </div>
@@ -99,17 +103,19 @@ export const ParallaxScroll = ({
               <motion.div
                 style={{ y: translateSecond }}
                 key={"grid-2" + idx}
-                className="group"
+                className="relative group cursor-pointer"
+                onClick={() => onImageClick?.(firstPart.length + idx)}
               >
                 <Image
                   src={el}
-                  className=""
+                  className="transition-transform duration-300 group-hover:scale-[1.02]"
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             ))}
           </div>
@@ -136,6 +142,7 @@ export const ParallaxScroll = ({
               style={{ y: translateFirst }}
               key={"grid-1" + idx}
               className="relative group cursor-pointer"
+              onClick={() => onImageClick?.(idx)}
             >
               <Image
                 src={el}
@@ -156,6 +163,7 @@ export const ParallaxScroll = ({
               style={{ y: translateSecond }}
               key={"grid-2" + idx}
               className="relative group cursor-pointer"
+              onClick={() => onImageClick?.(firstPart.length + idx)}
             >
               <Image
                 src={el}
@@ -176,6 +184,7 @@ export const ParallaxScroll = ({
               style={{ y: translateThird }}
               key={"grid-3" + idx}
               className="relative group cursor-pointer"
+              onClick={() => onImageClick?.(firstPart.length + secondPart.length + idx)}
             >
               <Image
                 src={el}

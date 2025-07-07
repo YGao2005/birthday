@@ -14,8 +14,8 @@ interface CurveTransitionProps {
 // Simple route mapping object
 const routes = {
   "/": "Gallery",
-  "/birthday": "Birthday",
-  "/cafes": "Cafes",
+  "/occasions": "Occasions",
+  "/cafe": "Cafes",
   "/disney": "Disney",
   "/food": "Food",
   "/getty": "Getty",

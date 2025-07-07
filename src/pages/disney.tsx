@@ -3,16 +3,28 @@ import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import { BackButton } from "@/components/gallery/back-button";
 import { getGalleryBySlug } from "@/data/gallery-data";
 import CurveTransition from "@/components/ui/curve-transition";
+import { ImageCarousel } from "@/components/ui/image-carousel";
 import "@/styles/gallery/[category]/gallery-category.css";
 
 export default function DisneyPage() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
   const galleryItem = getGalleryBySlug('disney');
   
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const handleImageClick = (imageIndex: number) => {
+    setSelectedImageIndex(imageIndex);
+    setIsCarouselOpen(true);
+  };
+
+  const handleCloseCarousel = () => {
+    setIsCarouselOpen(false);
+  };
   
   if (!galleryItem) {
     return <div>Gallery not found</div>;
@@ -30,7 +42,7 @@ export default function DisneyPage() {
             </h1>
             
             <p className="gallery-description">
-              "She's mine now!" - Maggie
+              "It's fine, I won't get wet!" - Famous Last Words
             </p>
 
             {galleryItem.description && (
@@ -48,8 +60,20 @@ export default function DisneyPage() {
         </div>
 
         <div className="gallery-right-panel">
-          <ParallaxScroll images={galleryItem.images} isSideLayout={true} />
+          <ParallaxScroll 
+            images={galleryItem.images} 
+            isSideLayout={true} 
+            onImageClick={handleImageClick}
+          />
         </div>
+
+        {/* Image Carousel Modal */}
+        <ImageCarousel
+          images={galleryItem.images}
+          initialIndex={selectedImageIndex}
+          isOpen={isCarouselOpen}
+          onClose={handleCloseCarousel}
+        />
       </div>
     </CurveTransition>
   );

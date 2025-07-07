@@ -12,8 +12,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 5rem 8rem;
+    justify-content: flex-start;
+    padding: 10rem 8rem 5rem 8rem;
     position: relative;
     z-index: 10;
   }
@@ -118,7 +118,7 @@
   /* Ensure proper layout on different screen sizes */
   @media (max-width: 1024px) {
     .gallery-left-panel {
-      padding: 3rem 2rem;
+      padding: 9rem 2rem 3rem 2rem;
     }
 
     .back-button {
@@ -157,7 +157,7 @@
     
     .gallery-left-panel {
       min-height: 50vh;
-      padding: 2rem 1.5rem;
+      padding: 8rem 1.5rem 2rem 1.5rem;
     }
     
     .gallery-right-panel {
@@ -178,10 +178,7 @@
     }
   }
 
-  @media (max-width: 1536px) {
-    .back-button {
-      left: 5rem; /* Match smaller screens */
-    }
+  @media (max-width: 768px) {
     .back-button {
       left: 1.5rem; /* Match mobile panel padding */
       top: 2rem;
