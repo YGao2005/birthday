@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import { BackButton } from "@/components/gallery/back-button";
 import { getGalleryBySlug } from "@/data/gallery-data";
+import { BlurFade } from "@/components/magicui/blur-fade";
 import "./gallery-category.css";
 
 export default function GalleryPage() {
@@ -30,26 +31,36 @@ export default function GalleryPage() {
       
       {/* Left Side - Title and Description */}
       <div className="gallery-left-panel">
-        <div className={`gallery-content transition-all duration-500 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-          <h1 className="gallery-title font-montserrat">
-            {galleryItem.name}
-          </h1>
+        <div className="gallery-content">
+          <BlurFade delay={0.8} direction="up" inView>
+            <h1 className="gallery-title font-montserrat">
+              {galleryItem.name}
+            </h1>
+          </BlurFade>
           
-          <p className="gallery-description">
-            "She's mine now!" - Maggie
-          </p>
+          <BlurFade delay={0.7} direction="up" inView>
+            <p className="gallery-description">
+              "She's mine now!" - Maggie
+            </p>
+          </BlurFade>
 
           {galleryItem.description && (
-            <p className="gallery-description">
-              {galleryItem.description}
-            </p>
+            <BlurFade delay={0.6} direction="up" inView>
+              <p className="gallery-description">
+                {galleryItem.description}
+              </p>
+            </BlurFade>
           )}
           
-          <div className="gallery-count">
-            {galleryItem.images.length} photos
-          </div>
+          <BlurFade delay={0.5} direction="up" inView>
+            <div className="gallery-count">
+              {galleryItem.images.length} photos
+            </div>
+          </BlurFade>
           
-          <div className="gallery-divider" />
+          <BlurFade delay={0.4} direction="up" inView>
+            <div className="gallery-divider" />
+          </BlurFade>
         </div>
       </div>
 

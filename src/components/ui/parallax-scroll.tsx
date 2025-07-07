@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { BlurFade } from "@/components/magicui/blur-fade";
 
 export const ParallaxScroll = ({
   images,
@@ -79,44 +80,56 @@ export const ParallaxScroll = ({
         <div className="grid">
           <div>
             {firstPart.map((el, idx) => (
-              <motion.div
-                style={{ y: translateFirst }}
-                key={"grid-1" + idx}
-                className="relative group cursor-none"
-                onClick={() => onImageClick?.(idx)}
+              <BlurFade 
+                key={"grid-1" + idx} 
+                delay={0.25 + (firstPart.length - 1 - idx) * 0.05} 
+                direction="up"
+                inView
               >
-                <Image
-                  src={el}
-                  className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  height={400}
-                  width={400}
-                  alt="gallery image"
-                  quality={90}
-                  loading={idx < 4 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.5] rounded-lg" />
-              </motion.div>
+                <motion.div
+                  style={{ y: translateFirst }}
+                  className="relative group cursor-none"
+                  onClick={() => onImageClick?.(idx)}
+                >
+                  <Image
+                    src={el}
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    height={400}
+                    width={400}
+                    alt="gallery image"
+                    quality={90}
+                    loading={idx < 4 ? "eager" : "lazy"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.5] rounded-lg" />
+                </motion.div>
+              </BlurFade>
             ))}
           </div>
           <div>
             {secondPart.map((el, idx) => (
-              <motion.div
-                style={{ y: translateSecond }}
-                key={"grid-2" + idx}
-                className="relative group cursor-none"
-                onClick={() => onImageClick?.(firstPart.length + idx)}
+              <BlurFade 
+                key={"grid-2" + idx} 
+                delay={0.25 + (secondPart.length - 1 - idx) * 0.05} 
+                direction="up"
+                inView
               >
-                <Image
-                  src={el}
-                  className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  height={400}
-                  width={400}
-                  alt="gallery image"
-                  quality={90}
-                  loading={idx < 4 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
-              </motion.div>
+                <motion.div
+                  style={{ y: translateSecond }}
+                  className="relative group cursor-none"
+                  onClick={() => onImageClick?.(firstPart.length + idx)}
+                >
+                  <Image
+                    src={el}
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    height={400}
+                    width={400}
+                    alt="gallery image"
+                    quality={90}
+                    loading={idx < 4 ? "eager" : "lazy"}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
+                </motion.div>
+              </BlurFade>
             ))}
           </div>
         </div>
@@ -138,65 +151,83 @@ export const ParallaxScroll = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-6xl mx-auto gap-12 py-20 px-10">
         <div className="grid gap-12">
           {firstPart.map((el, idx) => (
-            <motion.div
-              style={{ y: translateFirst }}
-              key={"grid-1" + idx}
-              className="relative group cursor-none rounded-lg"
-              onClick={() => onImageClick?.(idx)}
+            <BlurFade 
+              key={"grid-1" + idx} 
+              delay={0.25 + (firstPart.length - 1 - idx) * 0.05} 
+              direction="up"
+              inView
             >
-              <Image
-                src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
-                height={400}
-                width={400}
-                alt="gallery image"
-                quality={90}
-                loading={idx < 3 ? "eager" : "lazy"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
-            </motion.div>
+              <motion.div
+                style={{ y: translateFirst }}
+                className="relative group cursor-none rounded-lg"
+                onClick={() => onImageClick?.(idx)}
+              >
+                <Image
+                  src={el}
+                  className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
+                  height={400}
+                  width={400}
+                  alt="gallery image"
+                  quality={90}
+                  loading={idx < 3 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
+              </motion.div>
+            </BlurFade>
           ))}
         </div>
         <div className="grid gap-12">
           {secondPart.map((el, idx) => (
-            <motion.div
-              style={{ y: translateSecond }}
-              key={"grid-2" + idx}
-              className="relative group cursor-none rounded-lg"
-              onClick={() => onImageClick?.(firstPart.length + idx)}
+            <BlurFade 
+              key={"grid-2" + idx} 
+              delay={0.25 + (secondPart.length - 1 - idx) * 0.05} 
+              direction="up"
+              inView
             >
-              <Image
-                src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
-                height={400}
-                width={400}
-                alt="gallery image"
-                quality={90}
-                loading={idx < 3 ? "eager" : "lazy"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
-            </motion.div>
+              <motion.div
+                style={{ y: translateSecond }}
+                className="relative group cursor-none rounded-lg"
+                onClick={() => onImageClick?.(firstPart.length + idx)}
+              >
+                <Image
+                  src={el}
+                  className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
+                  height={400}
+                  width={400}
+                  alt="gallery image"
+                  quality={90}
+                  loading={idx < 3 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
+              </motion.div>
+            </BlurFade>
           ))}
         </div>
         <div className="grid gap-12">
           {thirdPart.map((el, idx) => (
-            <motion.div
-              style={{ y: translateThird }}
-              key={"grid-3" + idx}
-              className="relative group cursor-none rounded-lg"
-              onClick={() => onImageClick?.(firstPart.length + secondPart.length + idx)}
+            <BlurFade 
+              key={"grid-3" + idx} 
+              delay={0.25 + (thirdPart.length - 1 - idx) * 0.05} 
+              direction="up"
+              inView
             >
-              <Image
-                src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
-                height={400}
-                width={400}
-                alt="gallery image"
-                quality={90}
-                loading={idx < 3 ? "eager" : "lazy"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
-            </motion.div>
+              <motion.div
+                style={{ y: translateThird }}
+                className="relative group cursor-none rounded-lg"
+                onClick={() => onImageClick?.(firstPart.length + secondPart.length + idx)}
+              >
+                <Image
+                  src={el}
+                  className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
+                  height={400}
+                  width={400}
+                  alt="gallery image"
+                  quality={90}
+                  loading={idx < 3 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
+              </motion.div>
+            </BlurFade>
           ))}
         </div>
       </div>
