@@ -71,7 +71,7 @@ export function CustomPointer({
       <AnimatePresence>
         {isActive && (
           <motion.div
-            className="pointer-events-none fixed z-50 transform -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none fixed z-[9999] transform -translate-x-1/2 -translate-y-1/2"
             style={{
               top: y,
               left: x,

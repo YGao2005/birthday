@@ -82,19 +82,19 @@ export const ParallaxScroll = ({
               <motion.div
                 style={{ y: translateFirst }}
                 key={"grid-1" + idx}
-                className="relative group cursor-pointer"
+                className="relative group cursor-none"
                 onClick={() => onImageClick?.(idx)}
               >
                 <Image
                   src={el}
-                  className="transition-transform duration-300 group-hover:scale-[1.02]"
+                  className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.5] rounded-lg" />
               </motion.div>
             ))}
           </div>
@@ -103,19 +103,19 @@ export const ParallaxScroll = ({
               <motion.div
                 style={{ y: translateSecond }}
                 key={"grid-2" + idx}
-                className="relative group cursor-pointer"
+                className="relative group cursor-none"
                 onClick={() => onImageClick?.(firstPart.length + idx)}
               >
                 <Image
                   src={el}
-                  className="transition-transform duration-300 group-hover:scale-[1.02]"
+                  className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   height={400}
                   width={400}
                   alt="gallery image"
                   quality={90}
                   loading={idx < 4 ? "eager" : "lazy"}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
               </motion.div>
             ))}
           </div>
@@ -135,67 +135,67 @@ export const ParallaxScroll = ({
       className={cn("parallax-scroll h-[100vh] items-start overflow-y-auto w-full", className)}
       ref={gridRef}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-6xl mx-auto gap-10 py-20 px-10">
-        <div className="grid gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-6xl mx-auto gap-12 py-20 px-10">
+        <div className="grid gap-12">
           {firstPart.map((el, idx) => (
             <motion.div
               style={{ y: translateFirst }}
               key={"grid-1" + idx}
-              className="relative group cursor-pointer"
+              className="relative group cursor-none rounded-lg"
               onClick={() => onImageClick?.(idx)}
             >
               <Image
                 src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.02] shadow-2xl"
+                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
                 height={400}
                 width={400}
                 alt="gallery image"
                 quality={90}
                 loading={idx < 3 ? "eager" : "lazy"}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
             </motion.div>
           ))}
         </div>
-        <div className="grid gap-10">
+        <div className="grid gap-12">
           {secondPart.map((el, idx) => (
             <motion.div
               style={{ y: translateSecond }}
               key={"grid-2" + idx}
-              className="relative group cursor-pointer"
+              className="relative group cursor-none rounded-lg"
               onClick={() => onImageClick?.(firstPart.length + idx)}
             >
               <Image
                 src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.02] shadow-2xl"
+                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
                 height={400}
                 width={400}
                 alt="gallery image"
                 quality={90}
                 loading={idx < 3 ? "eager" : "lazy"}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
             </motion.div>
           ))}
         </div>
-        <div className="grid gap-10">
+        <div className="grid gap-12">
           {thirdPart.map((el, idx) => (
             <motion.div
               style={{ y: translateThird }}
               key={"grid-3" + idx}
-              className="relative group cursor-pointer"
+              className="relative group cursor-none rounded-lg"
               onClick={() => onImageClick?.(firstPart.length + secondPart.length + idx)}
             >
               <Image
                 src={el}
-                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-[1.02] shadow-2xl"
+                className="h-80 w-full object-cover object-center rounded-lg transition-transform duration-700 ease-out group-hover:scale-[1.02] shadow-2xl"
                 height={400}
                 width={400}
                 alt="gallery image"
                 quality={90}
                 loading={idx < 3 ? "eager" : "lazy"}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity transition-transform duration-700 ease-out group-hover:scale-[1.025] rounded-lg" />
             </motion.div>
           ))}
         </div>

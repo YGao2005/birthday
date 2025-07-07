@@ -1,7 +1,10 @@
 "use client";
 import { ArrowRight, X } from "lucide-react";
+import { IconArrowNarrowRight } from "@tabler/icons-react";
+
 import { useState, useRef, useId, useEffect, useCallback } from "react";
 import Image from "next/image";
+import "@/styles/globals.css";
 
 interface ImageCarouselProps {
   images: string[];
@@ -22,7 +25,7 @@ const Slide = ({ src, index, current, handleSlideClick }: SlideProps) => {
 
   const xRef = useRef(0);
   const yRef = useRef(0);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const animate = () => {
@@ -68,7 +71,7 @@ const Slide = ({ src, index, current, handleSlideClick }: SlideProps) => {
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10"
+        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10 cursor-none"
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -125,22 +128,27 @@ const CarouselControl = ({
   handleClick,
 }: CarouselControlProps) => {
   return (
-    <button
-      className={`w-10 h-10 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
-        type === "previous" ? "rotate-180" : ""
-      }`}
-      title={title}
-      onClick={handleClick}
-    >
-      <ArrowRight
-        className="text-neutral-600 dark:text-neutral-200"
-        style={{ width: "20px", height: "20px" }}
-      />
+    <button className="mx-8 group cursor-none" title={title} onClick={handleClick}>
+      <div
+        className={`relative h-12 w-12 rounded-full bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20 ${
+          type === "previous" ? "rotate-180" : ""
+        }`}
+      >
+        <ArrowRight
+          className="absolute left-/2 top-1/2 h-5 w-5 translate-x-2/3 translate-y-2/3 text-white transition-transform duration-300 group-hover:scale-110"
+          style={{ width: "20px", height: "20px" }}
+        />
+      </div>
     </button>
   );
 };
 
-export function ImageCarousel({ images, initialIndex = 0, isOpen, onClose }: ImageCarouselProps) {
+export function ImageCarousel({
+  images,
+  initialIndex = 0,
+  isOpen,
+  onClose,
+}: ImageCarouselProps) {
   const [current, setCurrent] = useState(initialIndex);
 
   // Update current when initialIndex changes
@@ -187,17 +195,19 @@ export function ImageCarousel({ images, initialIndex = 0, isOpen, onClose }: Ima
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm cursor-none">
       {/* Close button */}
-      <button
-        onClick={onClose}
-        className="fixed top-4 right-4 z-[60] w-10 h-10 flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200"
-        title="Close carousel"
-      >
-        <X
-          className="text-neutral-600 dark:text-neutral-200"
-          style={{ width: "20px", height: "20px" }}
-        />
+              <button
+          onClick={onClose}
+          className="fixed top-4 right-4 z-[60] group cursor-none"
+          title="Close carousel"
+        >
+        <div className="relative h-12 w-12 rounded-full bg-white/10 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
+          <X
+            className="absolute left-1/2 top-1/2 h-5 w-5 translate-x-2/3 translate-y-2/3 text-white transition-transform duration-300 group-hover:scale-110"
+            style={{ width: "20px", height: "20px" }}
+          />
+        </div>
       </button>
 
       {/* Carousel container */}
@@ -244,4 +254,4 @@ export function ImageCarousel({ images, initialIndex = 0, isOpen, onClose }: Ima
       </div>
     </div>
   );
-} 
+}
