@@ -4,6 +4,9 @@ import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import { GlobalCursorProvider } from "@/components/ui/global-cursor";
 import { AnimatePresence } from "motion/react";
 import "@/styles/globals.css";
+import "@/styles/gallery.css";
+import "@/styles/gallery/[category]/gallery-category.css";
+import "@/components/ui/curve-transition.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -24,9 +24,9 @@ export const galleryData: GalleryItem[] = [
       "/images/occasions/occasions5.JPG",
       "/images/occasions/occasions6.JPG",
       "/images/occasions/occasions7.JPG",
-      "/images/occasions/occasions8.JPG",
-      "/images/occasions/occasions9.JPG",
-      "/images/occasions/occasions10.JPG",
+      "/images/occasions/occasions8.jpg",
+      "/images/occasions/occasions9.jpg",
+      "/images/occasions/occasions10.jpg",
     ],
   },
   {

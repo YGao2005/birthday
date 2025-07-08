@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useRouter } from "next/router";
 import { text, curve, translate } from "./curve-animations";
-import "./curve-transition.css";
 
 interface CurveTransitionProps {
   children: React.ReactNode;

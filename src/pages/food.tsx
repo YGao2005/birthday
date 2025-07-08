@@ -5,7 +5,6 @@ import { getGalleryBySlug } from "@/data/gallery-data";
 import CurveTransition from "@/components/ui/curve-transition";
 import { ImageCarousel } from "@/components/ui/image-carousel";
 import { BlurFade } from "@/components/magicui/blur-fade";
-import "@/styles/gallery/[category]/gallery-category.css";
 
 export default function FoodPage() {
   const [isLoaded, setIsLoaded] = useState(false);

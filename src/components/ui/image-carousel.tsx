@@ -6,7 +6,6 @@ import { BlurFade } from "@/components/magicui/blur-fade";
 
 import { useState, useRef, useId, useEffect, useCallback } from "react";
 import Image from "next/image";
-import "@/styles/globals.css";
 
 interface ImageCarouselProps {
   images: string[];
