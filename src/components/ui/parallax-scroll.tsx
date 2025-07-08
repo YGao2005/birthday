@@ -91,7 +91,6 @@ export const ParallaxScroll = ({
                 key={"grid-1" + idx} 
                 delay={calculateDelay(firstPart.length, idx)} 
                 direction="up"
-                inView
               >
                 <motion.div
                   style={{ y: translateFirst }}
@@ -118,7 +117,6 @@ export const ParallaxScroll = ({
                 key={"grid-2" + idx} 
                 delay={calculateDelay(secondPart.length, idx)} 
                 direction="up"
-                inView
               >
                 <motion.div
                   style={{ y: translateSecond }}
@@ -162,7 +160,6 @@ export const ParallaxScroll = ({
               key={"grid-1" + idx} 
               delay={calculateDelay(firstPart.length, idx)} 
               direction="up"
-              inView
             >
               <motion.div
                 style={{ y: translateFirst }}
@@ -189,7 +186,6 @@ export const ParallaxScroll = ({
               key={"grid-2" + idx} 
               delay={calculateDelay(secondPart.length, idx)} 
               direction="up"
-              inView
             >
               <motion.div
                 style={{ y: translateSecond }}
@@ -216,7 +212,6 @@ export const ParallaxScroll = ({
               key={"grid-3" + idx} 
               delay={calculateDelay(thirdPart.length, idx)} 
               direction="up"
-              inView
             >
               <motion.div
                 style={{ y: translateThird }}
