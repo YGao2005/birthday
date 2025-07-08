@@ -1,5 +1,6 @@
 // src/pages/_app.tsx
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import { GlobalCursorProvider } from "@/components/ui/global-cursor";
 import { AnimatePresence } from "motion/react";
@@ -26,14 +27,19 @@ const montserrat = Montserrat({
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
-    >
-      <GlobalCursorProvider>
-        <AnimatePresence mode="wait">
-          <Component key={router.route} {...pageProps} />
-        </AnimatePresence>
-      </GlobalCursorProvider>
-    </div>
+    <>
+      <Head>
+        <link rel="icon" type="image/svg+xml" href="/heart-svgrepo-com.svg" />
+      </Head>
+      <div
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
+      >
+        <GlobalCursorProvider>
+          <AnimatePresence mode="wait">
+            <Component key={router.route} {...pageProps} />
+          </AnimatePresence>
+        </GlobalCursorProvider>
+      </div>
+    </>
   );
 }

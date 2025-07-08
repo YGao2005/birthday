@@ -45,7 +45,7 @@ export default function KtownPage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "Do we have to wait in line again...?" - Ellie
+                "This... is a lot of food..." - Ellie
               </p>
             </BlurFade>
 

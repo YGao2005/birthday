@@ -45,7 +45,7 @@ export default function CutePage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "🍞🧀🐾" - Ellie
+                "Come here meow meow!!!" - Ellie
               </p>
             </BlurFade>
 

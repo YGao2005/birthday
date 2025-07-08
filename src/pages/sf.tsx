@@ -45,7 +45,7 @@ export default function SfPage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "NOOOOO MY DRINK!!!" - Ellie
+                "She's mine now!" - Maggie
               </p>
             </BlurFade>
 

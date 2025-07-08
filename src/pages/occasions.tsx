@@ -45,7 +45,7 @@ export default function OccasionsPage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "You look so good tonight babe ♡" - Yang
+                "You're lucky I'm not stealing Ellie from you" - Tsel
               </p>
             </BlurFade>
 

@@ -45,7 +45,7 @@ export default function GettyPage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "Can I see your camera roll? I want to see which photos you took" - Ellie
+                "STOP TAKING PHOTOS OF ME!!!" - Ellie
               </p>
             </BlurFade>
 

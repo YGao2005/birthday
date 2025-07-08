@@ -45,7 +45,8 @@ export default function FoodPage() {
             
             <BlurFade delay={0.7} direction="up" inView>
               <p className="gallery-description">
-                "But... there's no line? Are you sure this place is good?" - Ellie
+                "Waffle?" - Ellie <br/>
+                "Waffle." - Yang
               </p>
             </BlurFade>
 
